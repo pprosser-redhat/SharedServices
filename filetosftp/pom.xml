@@ -7,8 +7,8 @@
 	<groupId>org.phil</groupId>
 	<artifactId>fileprocessing</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>Fabric8 :: Quickstarts :: Spring-Boot :: Camel XML</name>
-	<description>Spring Boot example running a Camel route defined in XML</description>
+	<name>File Processing and Encryption</name>
+	<description>Reads CSV, converts to XML, Encrypts and sends to SFTP endpoint</description>
 	<properties>
 		<tomcat.juli.version>8.0.36</tomcat.juli.version>
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
