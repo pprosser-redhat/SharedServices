@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/FlightSchema"
+	xmlns:tns="http://www.example.org/FlightSchema"
+	elementFormDefault="qualified">
+
+
+
+	<complexType name="flighttype">
+
+    		<sequence>
+    			<element name="Month" type="string"></element>
+    			<element name="TicketClass" type="string"></element>
+    			<element name="Departure" type="string"></element>
+    			<element name="DepartureDescription" type="string"></element>
+    			<element name="Destination" type="string"></element>
+    			<element name="DestinationDescription" type="string"></element>
+    			<element name="PaidFare" type="int"></element>
+    			<element name="SupplierName" type="string"></element>
+    			<element name="Directorate" type="string"></element>
+    			<element name="date" type="string"></element>
+    		</sequence>
+	</complexType>
+
+
+
+    <element name="Flights">
+    <complexType>
+    <sequence maxOccurs="unbounded">
+    <element name="Flight" type="tns:flighttype"></element></sequence>
+    </complexType>
+    </element>
+</schema>

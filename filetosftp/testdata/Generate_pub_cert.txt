@@ -1,0 +1,1 @@
+keytool -exportcert -rfc -alias phil -file phi.cer -keystore file_keystore.jks -storepass supersecret

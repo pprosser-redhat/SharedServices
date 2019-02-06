@@ -1,0 +1,4 @@
+Departure_2011,Ticket_class_description,Departure,Destination,Paid_fare,Supplier_name,Directorate,Date
+January,Economy,UK,UK,99.91,FLYBE BRITISH EUROPEAN,IPS,05/01/12
+March,Economy,UK,Non EEA,389.1,KLM-ROYAL DUTCH AIRLINES,IPS,14/03/11
+January,Economy,UK,EEA,271.37,LOT-POLISH AIRLINES,IPS,24/07/12

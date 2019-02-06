@@ -1,0 +1,1 @@
+keytool -importcert -noprompt -alias phil -file phi.cer -keystore file_truststore.jks -storepass supersecret

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="sharedservices.travel.enrich.EnrichDesintationLocation"
+        id="addDestinationDesc" scope="singleton"/>
+    <bean class="sharedservices.travel.enrich.EnrichDepartureLocation"
+        id="addDepartureDesc" scope="singleton"/>
+    <bean class="sharedservices.travel.aggregatexml.ConvertCSVToXML"
+        id="createflighttype" scope="singleton"/>
+    <bean class="sharedservices.travel.aggregatexml.AggregateToXML"
+        id="aggregate" scope="singleton"/>
+    <bean class="sharedservices.encryption.EncryptionKeys"
+        factory-method="loadKey" id="secretKey"/>
+    <camelContext id="fileprocessing" shutdownRoute="Defer" xmlns="http://camel.apache.org/schema/spring">
+        <dataFormats>
+            <bindy classType="sharedservices.travel.Flight"
+                contentTypeHeader="false" id="journeys" type="Csv" unwrapSingleInstance="true"/>
+        </dataFormats>
+        <route id="movefile">
+            <from id="receiveFile" uri="file:/Users/pprosser/files?moveFailed=failed&amp;move=done/${date:now:yyyyMMdd'_'}${file:name}&amp;delay=30&amp;initialDelay=5&amp;timeUnit=SECONDS"/>
+            <split id="ProcessMessage" strategyRef="aggregate" streaming="true">
+                <tokenize token="\n"/>
+                <when id="_when1">
+                    <simple>${body} not contains 'Departure_2011,Ticket_class_description'</simple>
+                    <unmarshal id="ConvertToCSV">
+                        <bindy classType="sharedservices.travel.Flight" type="Csv"/>
+                    </unmarshal>
+                    <process id="_convertToXML" ref="createflighttype"/>
+                    <setHeader headerName="locationID" id="_DepartureAsLocationID">
+                        <simple>${body.departure}</simple>
+                    </setHeader>
+                    <enrich id="_AddDepartureDescription" strategyRef="addDepartureDesc">
+                        <constant>direct:getDescription</constant>
+                    </enrich>
+                    <setHeader headerName="locationID" id="_DestinationAsLocationID">
+                        <simple>${body.destination}</simple>
+                    </setHeader>
+                    <enrich id="_AddDestinationDescription" strategyRef="addDestinationDesc">
+                        <constant>direct:getDescription</constant>
+                    </enrich>
+                    <!--  <transform id="_transform1">
+                        <simple>${body.setDestinationDescription(${header.locationDescription})}</simple>
+                    </transform>-->
+                </when>
+            </split>
+            <log id="_log2" message="Number of messages process >>> ${header.MessagesProcessed}"/>
+            <marshal id="_marshal1">
+                <jaxb contextPath="sharedservices.xml.travel.flights"/>
+            </marshal>
+            <marshal id="Encrypt">
+                <pgp algorithm="6"
+                    keyFileName="{{demo.publicKeyFileName}}" keyUserid="{{demo.keyUserid}}"/>
+            </marshal>
+            <to id="sendFile" uri="sftp://phil@amqwork1:22/receivedfiles?fileName=${date:now:yyyyMMdd'_'}${file:name}.encrypted&amp;password=welcome1"/>
+        </route>
+        <route id="ReadAndUnencryptFile">
+            <from id="readFile" uri="sftp://phil@amqwork1:22/receivedfiles?move=/home/phil/receivedfiles/finished&amp;delay=30&amp;initialDelay=5&amp;timeUnit=SECONDS&amp;password=welcome1"/>
+            <unmarshal id="_unmarshal2">
+                <pgp algorithm="6"
+                    keyFileName="{{demo.privateKeyFileName}}"
+                    keyUserid="{{demo.keyUserid}}" password="{{demo.keypassword}}"/>
+            </unmarshal>
+            <log id="_log3" message="Unencrypting and writing file locally"/>
+            <log id="_log3" message="Finished - ${body}"/>
+            <to id="_to1" uri="file:/Users/pprosser/files/finished?fileName=${date:now:yyyyMMdd'_'}${file:name}.xml"/>
+        </route>
+        <route id="GetDescription">
+            <from id="_from1" uri="direct:getDescription"/>
+            <to id="GetDescriptionFromDB" uri="sql:SELECT locationDescription FROM phil.Location where locationID = :#locationID?dataSource=dataSource&amp;outputHeader=locationDescription&amp;outputType=SelectOne"/>
+        </route>
+    </camelContext>
+</beans>

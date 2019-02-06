@@ -1,0 +1,1 @@
+keytool -genseckey -alias ciasecrets -keypass secret -keystore cia_secrets.jceks -storepass supersecret -storetype JCEKS
