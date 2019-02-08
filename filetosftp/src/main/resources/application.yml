@@ -26,8 +26,8 @@ hawtio:
     
     
 demo:
-  publicKeyFileName: file:/Users/pprosser/projects/sharedservices/filetosftp/src/main/resources/public.gpg
-  privateKeyFileName: file:/Users/pprosser/projects/sharedservices/filetosftp/src/main/resources/secret.asc
+  publicKeyFileName: file:/Users/pprosser/git/sharedservices/filetosftp/src/main/resources/public.gpg
+  privateKeyFileName: file:/Users/pprosser/git/sharedservices/filetosftp/src/main/resources/secret.asc
   keyUserid: pprosser@redhat.com
   keypassword: secret
 
