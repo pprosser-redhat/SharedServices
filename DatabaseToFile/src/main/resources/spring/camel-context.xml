@@ -2,9 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-        <restConfiguration apiContextPath="/api-doc" bindingMode="json"
-            component="undertow" contextPath="/sharedservices" port="8082"/>
+        <restConfiguration apiContextPath="api-docs" bindingMode="json"
+            component="undertow" contextPath="/sharedservices"
+            enableCORS="true" port="8082">
+            <apiProperty key="cors" value="true"/>
+            <apiProperty key="api.title" value="Database to file unload"/>
+            <apiProperty key="api.version" value="1.0.0"/>
+            <corsHeaders key="Access-Control-Allow-Origin" value="*"/>
+            <corsHeaders key="Access-Control-Allow-Methods" value="GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, CONNECT, PATCH"/>
+            <corsHeaders key="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"/>
+        </restConfiguration>
         <rest apiDocs="true" enableCORS="true" id="startDBFileCreation" path="/createfile">
+        <description>Start file processing</description>
             <get id="getStartFile" outType="String" uri="/start">
                 <to uri="direct:createFile"/>
             </get>
