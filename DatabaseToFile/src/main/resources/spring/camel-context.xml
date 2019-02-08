@@ -22,10 +22,20 @@
                 <description>Extract all rows from the database</description>
             </to>
             <log id="route-log" message=">>>> Row count ${header.CamelSqlRowCount}"/>
-            <marshal id="_marshal1">
-                <json contentTypeHeader="true" library="Jackson" prettyPrint="true"/>
-            </marshal>
-            <to id="sendFile" uri="file:{{demo.outputdirectory}}?fileName=${date:now:yyyyMMdd'_'}output.json"/>
+            <choice id="_choice1">
+                <when id="processxml">
+                    <simple>${header.Content-Type} == "application/xml"</simple>
+                    <marshal id="_marshal2">
+                        <jacksonxml prettyPrint="true"/>
+                    </marshal>
+                </when>
+                <otherwise id="_otherwise1">
+                    <marshal id="_marshal1">
+                        <json contentTypeHeader="true" library="Jackson" prettyPrint="true"/>
+                    </marshal>
+                </otherwise>
+            </choice>
+            <to id="sendFile" uri="file:{{demo.outputdirectory}}?fileName=${date:now:yyyyMMdd'_'}output"/>
             <log id="route-body" message="${body}"/>
         </route>
     </camelContext>

@@ -9,8 +9,8 @@
   <description>Reads data from a file and writes out to a file</description>
   <properties>
     <tomcat.juli.version>8.0.36</tomcat.juli.version>
-    <fuse.version>7.2.0.fuse-720020-redhat-00001</fuse.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+    <fuse.version>7.2.0.fuse-720020-redhat-00001</fuse.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
   </properties>
@@ -72,8 +72,13 @@
       <artifactId>camel-josql</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.apache.camel</groupId>
-    	<artifactId>camel-jackson-starter</artifactId>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jacksonxml</artifactId>
+      <version>2.21.0.fuse-720050-redhat-00001</version>
     </dependency>
   </dependencies>
   <build>
