@@ -2,19 +2,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
-        <restConfiguration apiContextPath="/docs" bindingMode="auto"
+        <restConfiguration apiContextPath="/api-doc" bindingMode="json"
             component="undertow" contextPath="/sharedservices" port="8082"/>
         <rest apiDocs="true" enableCORS="true" id="startDBFileCreation" path="/createfile">
             <get id="getStartFile" outType="String" uri="/start">
                 <to uri="direct:createFile"/>
             </get>
         </rest>
-        <route id="simple-route">
+        <route id="Start Database to file processing">
             <from id="create-file" uri="direct:createFile"/>
             <setBody id="route-setBody">
-                <constant>{"response": "Hello World"}</constant>
+                <constant>{"response": "DB write to file started"}</constant>
             </setBody>
-            <log id="route-log" message=">>>> ${body}"/>
+            <to id="_to2" uri="seda:doprocessing?waitForTaskToComplete=Never"/>
+        </route>
+        <route id="read from Db and write to file">
+            <from id="_to1" uri="seda:doprocessing"/>
+            <to id="GetDescriptionFromDB" uri="sql:SELECT * FROM phil.Travel?dataSource=dataSource">
+                <description>Extract all rows from the database</description>
+            </to>
+            <log id="route-log" message=">>>> Row count ${header.CamelSqlRowCount}"/>
+            <marshal id="_marshal1">
+                <json contentTypeHeader="true" library="Jackson" prettyPrint="true"/>
+            </marshal>
+            <to id="sendFile" uri="file:{{demo.outputdirectory}}?fileName=${date:now:yyyyMMdd'_'}output.json"/>
+            <log id="route-body" message="${body}"/>
         </route>
     </camelContext>
 </beans>

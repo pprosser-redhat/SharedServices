@@ -24,6 +24,9 @@ endpoints:
 hawtio:
   authenticationEnabled: false
 
+demo:
+  outputdirectory: /Users/pprosser/files/dboutput
+  
 mysql:
   service:
     # The name of the service hosting the MySQL database server,
