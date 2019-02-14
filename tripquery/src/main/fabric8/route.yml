@@ -1,0 +1,8 @@
+spec:
+  host: tripquery.apps.tntather-3822.openshiftworkshop.com
+  tls:
+  to:
+    termination: edge
+    kind: Service
+    name: tripquery
+    
