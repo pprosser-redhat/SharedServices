@@ -13,7 +13,6 @@
             <corsHeaders key="Access-Control-Allow-Headers" value="Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"/>
         </restConfiguration>
         <rest apiDocs="true" enableCORS="true" id="startDBFileCreation" path="/createfile">
-        <description>Start file processing</description>
             <get id="getStartFile" outType="String" uri="/start">
                 <to uri="direct:createFile"/>
             </get>

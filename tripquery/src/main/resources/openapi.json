@@ -1,0 +1,130 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "TripQuery",
+        "description": "A brand new API with no content.  Go nuts!",
+        "contact": {
+            "name": "PhilProsser",
+            "url": "http://www.redhat.com",
+            "email": "pprosser@redhat.com"
+        },
+        "version": "1.0"
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/trips": {
+            "get": {
+                "description": "Return all trips made for the year",
+                "responses": {
+                    "200": {
+                        "description": "Lis of trips as a result of the query",
+                        "schema": {
+                            "$ref": "#/definitions/trips"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 75.91,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 58.74,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "trip": {
+            "title": "Root Type for trip",
+            "description": "Sinlge trip",
+            "type": "object",
+            "properties": {
+                "Departure_2011": {
+                    "type": "string"
+                },
+                "Ticket_class_description": {
+                    "type": "string"
+                },
+                "Departure": {
+                    "type": "string"
+                },
+                "Destination": {
+                    "type": "string"
+                },
+                "Paid_fare": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "Supplier_name": {
+                    "type": "string"
+                },
+                "Directorate": {
+                    "type": "string"
+                },
+                "Date": {
+                    "type": "string"
+                }
+            },
+            "example": "{\n  \"Departure_2011\" : \"February\",\n  \"Ticket_class_description\" : \"Economy\",\n  \"Departure\" : \"UK\",\n  \"Destination\" : \"UK\",\n  \"Paid_fare\" : 78.91,\n  \"Supplier_name\" : \"FLYBE BRITISH EUROPEAN\",\n  \"Directorate\" : \"CRB\",\n  \"Date\" : \"26/02/11\"\n}"
+        },
+        "trips": {
+            "title": "Root Type for trips",
+            "description": "Multiple trips",
+            "required": [
+                "blah",
+                "trips"
+            ],
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Departure_2011": {
+                        "type": "string"
+                    },
+                    "Ticket_class_description": {
+                        "type": "string"
+                    },
+                    "Departure": {
+                        "type": "string"
+                    },
+                    "Destination": {
+                        "type": "string"
+                    },
+                    "Paid_fare": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "Supplier_name": {
+                        "type": "string"
+                    },
+                    "Directorate": {
+                        "type": "string"
+                    },
+                    "Date": {
+                        "type": "string"
+                    }
+                }
+            },
+            "properties": {
+                "trips": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/trip"
+                    }
+                }
+            },
+            "example": "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 20.1,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 32.33,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+        }
+    },
+    "tags": [
+        {
+            "name": "trips",
+            "description": "Flights made"
+        },
+        {
+            "name": "Journies",
+            "description": ""
+        }
+    ]
+}
