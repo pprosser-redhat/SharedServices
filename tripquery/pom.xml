@@ -85,6 +85,10 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jackson-starter</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.hawt</groupId>
+			<artifactId>hawtio-springboot</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

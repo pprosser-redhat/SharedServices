@@ -30,18 +30,18 @@
         </rest>
         <rest bindingMode="json" enableCORS="true" id="rest2">
             <get bindingMode="json"
-                id="get-35272993-ff7f-4fab-9ae6-3db3355a1f34" uri="/trips">
+                id="get-alltrips" uri="/trips">
                 <description>Return all trips made for the year</description>
                 <to uri="direct:rest1"/>
             </get>
-            <get id="get-6029e285-5101-4230-a124-16c08a9e5c52" uri="/trips/airline">
+            <get id="get-tripsbyairline" uri="/trips/airline">
                 <description>Search trips by Airline</description>
                 <param dataType="string"
                     description="Provide the airline to retrive only trips made by that airline. Examples are EASYJET, FLYBE BRITISH EUROPEAN, BMI, BMI BABY, LOT-POLISH AIRLINES, KLM-ROYAL DUTCH AIRLINES"
                     name="airline" required="true" type="query"/>
                 <to uri="direct:rest2"/>
             </get>
-            <get id="get-fd241004-5e80-4bb5-a9ef-2c9911f93ba8" uri="/trips/searchbyvalue">
+            <get id="get-tripsbymoney" uri="/trips/searchbyvalue">
                 <description>Return trips greater equal to the value provided</description>
                 <param dataType="number"
                     description="Search for trips greater than equal to the value provided"
