@@ -32,6 +32,58 @@
                     }
                 }
             }
+        },
+        "/trips/airline": {
+            "get": {
+                "summary": "Search trips by Airline",
+                "description": "Search trips by Airline",
+                "responses": {
+                    "200": {
+                        "description": "Jounrney list",
+                        "schema": {
+                            "$ref": "#/definitions/trips"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 30.86,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 20.19,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "airline",
+                    "in": "query",
+                    "description": "Provide the airline to retrive only trips made by that airline. Examples are EASYJET, FLYBE BRITISH EUROPEAN, BMI, BMI BABY, LOT-POLISH AIRLINES, KLM-ROYAL DUTCH AIRLINES",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        },
+        "/trips/searchbyvalue": {
+            "get": {
+                "summary": "Return trips greater equal to the value provided",
+                "description": "Return trips greater equal to the value provided",
+                "responses": {
+                    "200": {
+                        "description": "Trips",
+                        "schema": {
+                            "$ref": "#/definitions/trips"
+                        },
+                        "examples": {
+                            "application/json": "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 5.59,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 58.2,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+                        }
+                    }
+                }
+            },
+            "parameters": [
+                {
+                    "name": "money",
+                    "in": "query",
+                    "description": "Search for trips greater than equal to the value provided",
+                    "required": true,
+                    "type": "number"
+                }
+            ]
         }
     },
     "definitions": {

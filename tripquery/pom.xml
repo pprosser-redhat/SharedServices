@@ -132,7 +132,7 @@
 				<artifactId>camel-restdsl-swagger-plugin</artifactId>
 				<version>2.21.0</version>
 				<configuration>
-					<specificationUri>src/resources/openapi.json</specificationUri>
+					<specificationUri>src/main/resources/openapi.json</specificationUri>
 					<fileName>camel-context2.xml</fileName>
 					<outputDirectory>src/main/resources/spring</outputDirectory>
 				</configuration>

@@ -34,17 +34,40 @@
                 <description>Return all trips made for the year</description>
                 <to uri="direct:rest1"/>
             </get>
+            <get id="get-6029e285-5101-4230-a124-16c08a9e5c52" uri="/trips/airline">
+                <description>Search trips by Airline</description>
+                <param dataType="string"
+                    description="Provide the airline to retrive only trips made by that airline. Examples are EASYJET, FLYBE BRITISH EUROPEAN, BMI, BMI BABY, LOT-POLISH AIRLINES, KLM-ROYAL DUTCH AIRLINES"
+                    name="airline" required="true" type="query"/>
+                <to uri="direct:rest2"/>
+            </get>
+            <get id="get-fd241004-5e80-4bb5-a9ef-2c9911f93ba8" uri="/trips/searchbyvalue">
+                <description>Return trips greater equal to the value provided</description>
+                <param dataType="number"
+                    description="Search for trips greater than equal to the value provided"
+                    name="money" required="true" type="query"/>
+                <to uri="direct:rest3"/>
+            </get>
         </rest>
-        <route id="route-b34e8e11-6832-46d5-a45f-55773101b4c8">
-            <from id="from-3d337d3e-bf60-4a1f-90f3-4348016aa033" uri="direct:rest1"/>
-            <!--  <marshal id="_marshal1">
-                <json contentTypeHeader="true" library="Jackson" prettyPrint="true"/>
-            </marshal> -->
-            <to id="GetDescriptionFromDB" uri="sql:SELECT * FROM phil.Travel?dataSource=dataSource">
+        <route id="Query all trips">
+            <from id="Query" uri="direct:rest1"/>
+            <to id="GetTripsFromDB" uri="sql:SELECT * FROM phil.Travel?dataSource=dataSource">
                 <description>Extract all rows from the database</description>
             </to>
         </route>
-        <route id="route2">
+        <route id="Query by Airline">
+            <from id="SearchByAirline" uri="direct:rest2"/>
+            <to id="GetTripsbyAirlineFromDB" uri="sql:SELECT * FROM phil.Travel WHERE Supplier_name SOUNDS LIKE :#${headers.airline}?dataSource=dataSource">
+                <description>Extract all rows from the database</description>
+            </to>
+        </route>
+        <route id="Query by Monetary Value">
+            <from id="SearchByMoney" uri="direct:rest3"/>
+            <to id="GetTripsbyMoneyFromDB" uri="sql:SELECT * FROM phil.Travel WHERE Paid_fare >= :#${headers.money}?dataSource=dataSource">
+                <description>Extract all rows from the database</description>
+            </to>
+        </route>
+        <route id="Undefined Route">
             <from id="from-route2" uri="direct:501"/>
             <log id="log-route2" message="API operation not yet implemented: ${headers.CamelHttpMethod} ${headers.CamelHttpPath}"/>
             <setHeader headerName="Exchange.HTTP_RESPONSE_CODE" id="setHeader-route2">
