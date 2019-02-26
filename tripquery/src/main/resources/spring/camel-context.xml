@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.apache.qpid.jms.JmsConnectionFactory"
+        id="jmsConnectionFactory" primary="true">
+        <property name="remoteURI" value="amqp://${amqpEndPoint}"/>
+    </bean>
     <camelContext id="context1" xmlns="http://camel.apache.org/schema/spring">
         <onException>
             <exception>java.lang.Exception</exception>
@@ -14,7 +18,8 @@
                 <simple>${exception.message}</simple>
             </setBody>
         </onException>
-        <restConfiguration apiContextPath="/openapi.json" component="servlet"/>
+        <restConfiguration apiContextPath="/openapi.json"
+            component="servlet" contextPath="/" scheme="http"/>
         <rest enableCORS="true" id="rest1" path="/">
             <get id="openapi.json" produces="application/json" uri="openapi.json">
                 <description>Gets the openapi document for this service</description>
@@ -29,8 +34,7 @@
             </get>
         </rest>
         <rest bindingMode="json" enableCORS="true" id="rest2">
-            <get bindingMode="json"
-                id="get-alltrips" uri="/trips">
+            <get bindingMode="json" id="get-alltrips" uri="/trips">
                 <description>Return all trips made for the year</description>
                 <to uri="direct:rest1"/>
             </get>
@@ -51,21 +55,24 @@
         </rest>
         <route id="Query all trips">
             <from id="Query" uri="direct:rest1"/>
-            <to id="GetTripsFromDB" uri="sql:SELECT * FROM phil.Travel?dataSource=dataSource">
+            <to id="GetTripsFromDB" uri="sql:SELECT * FROM travel?dataSource=dataSource">
                 <description>Extract all rows from the database</description>
             </to>
+            <to id="_to1" uri="direct:receiveMessage?exchangePattern=InOnly"/>
         </route>
         <route id="Query by Airline">
             <from id="SearchByAirline" uri="direct:rest2"/>
-            <to id="GetTripsbyAirlineFromDB" uri="sql:SELECT * FROM phil.Travel WHERE Supplier_name SOUNDS LIKE :#${headers.airline}?dataSource=dataSource">
+            <to id="GetTripsbyAirlineFromDB" uri="sql:SELECT * FROM travel WHERE Supplier_name SOUNDS LIKE :#${headers.airline}?dataSource=dataSource">
                 <description>Extract all rows from the database</description>
             </to>
+            <to id="_to2" uri="direct:receiveMessage?exchangePattern=InOnly"/>
         </route>
         <route id="Query by Monetary Value">
             <from id="SearchByMoney" uri="direct:rest3"/>
-            <to id="GetTripsbyMoneyFromDB" uri="sql:SELECT * FROM phil.Travel WHERE Paid_fare >= :#${headers.money}?dataSource=dataSource">
+            <to id="GetTripsbyMoneyFromDB" uri="sql:SELECT * FROM travel WHERE Paid_fare >= :#${headers.money}?dataSource=dataSource">
                 <description>Extract all rows from the database</description>
             </to>
+            <to id="_to3" uri="direct:receiveMessage?exchangePattern=InOnly"/>
         </route>
         <route id="Undefined Route">
             <from id="from-route2" uri="direct:501"/>
@@ -76,6 +83,16 @@
             <setBody id="setBody-route2">
                 <simple>API operation not implemented: ${headers.CamelHttpMethod} ${headers.CamelHttpPath}</simple>
             </setBody>
+        </route>
+        <route id="sendMessagetoQ">
+            <from id="_from1" uri="direct:receiveMessage"/>
+            <marshal id="_marshal1">
+                <json library="Jackson" prettyPrint="true"/>
+            </marshal>
+            <to id="toAMQP" uri="amqp:queue:receiveFlights?connectionFactory=jmsConnectionFactory&amp;jmsMessageType=Text&amp;deliveryMode=2"/>
+            <unmarshal id="_unmarshal1">
+                <json library="Jackson"/>
+            </unmarshal>
         </route>
     </camelContext>
 </beans>
