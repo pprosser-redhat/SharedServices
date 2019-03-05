@@ -1,0 +1,36 @@
+camel:
+  springboot:
+    # The Camel context name
+    name: apitofile
+  component:
+    servlet:
+      mapping:
+        contextPath: /*
+
+# Binding health checks to a different port
+management:
+  port: 8282
+server:
+  port 8182
+  
+# disable all management enpoints except health
+endpoints:
+  hawtio:
+    sensitive: false
+    enabled: true
+  enabled: false
+  health:
+    enabled: true
+  jolokia:
+    sensitive: false
+    enabled: true
+    
+    
+hawtio:
+  authenticationEnabled: false
+
+
+# The application configuration properties
+quickstart:
+  generateOrderPeriod: 10s
+  processOrderPeriod: 30s

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.apache.camel.component.http4.HttpComponent"
+        id="fusehttp4" scope="singleton"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="simple-route" shutdownRoute="Defer" streamCache="true">
+            <from id="route-timer" uri="timer://foo?period=10000"/>
+            <setBody id="route-setBody">
+                <simple>Hello World from camel-context.xml</simple>
+            </setBody>
+            <log id="route-log" message=">>> ${body}"/>
+            <setHeader headerName="Exchange.HTTP_QUERY" id="_operatorandoperatortype">
+                <simple>airline=british%20airways</simple>
+            </setHeader>
+            <to id="Query API" pattern="InOut" uri="rest-swagger:openapi.json#querytripsbyairline?componentName=fusehttp4&amp;host=http://localhost:8281&amp;bridgeEndpoint=true"/>
+            <log id="_log2" message=">>>>> The body: ${body}"/>
+            <unmarshal id="_unmarshal1">
+                <xmljson arrayName="thearray" forceTopLevelObject="true"
+                    namespaceLenient="true"
+                    removeNamespacePrefixes="true"
+                    rootName="TravelQuery" skipNamespaces="true"/>
+            </unmarshal>
+            <log id="_log2" message=">>>>> The body: ${body}"/>
+            <to id="sendFile" uri="sftp://phil@amqwork1:22/receivedfiles/api?fileName=${date:now:yyyyMMddmmss}.xml&amp;password=welcome1"/>
+        </route>
+    </camelContext>
+</beans>
