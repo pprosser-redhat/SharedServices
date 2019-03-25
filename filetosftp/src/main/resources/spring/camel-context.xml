@@ -9,8 +9,6 @@
         id="createflighttype" scope="singleton"/>
     <bean class="sharedservices.travel.aggregatexml.AggregateToXML"
         id="aggregate" scope="singleton"/>
-    <bean class="sharedservices.encryption.EncryptionKeys"
-        factory-method="loadKey" id="secretKey"/>
     <camelContext id="fileprocessing" shutdownRoute="Defer" xmlns="http://camel.apache.org/schema/spring">
         <dataFormats>
             <bindy classType="sharedservices.travel.Flight"
