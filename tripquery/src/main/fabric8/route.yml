@@ -1,5 +1,5 @@
 spec:
-  host: tripquery.apps.tntather-3822.openshiftworkshop.com
+  host: tripquery.apps.penryn.demolab.local
   tls:
   to:
     termination: edge
