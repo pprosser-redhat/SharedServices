@@ -1,6 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    discovery.3scale.net/description-path: /openapi.json
+    discovery.3scale.net/discovery-version: v1
+    discovery.3scale.net/path: 
+    discovery.3scale.net/port: '8080'
+    discovery.3scale.net/scheme: http
+    fabric8.io/git-branch: master
+    fabric8.io/git-commit: 39f4588c3e415e21fdefe72b397e4ea16f57e5ca
+    fabric8.io/iconUrl: img/icons/camel.svg
+    prometheus.io/port: '9779'
+    prometheus.io/scrape: 'true'
 spec:
   ports:
     - name: http
       port: 8080
       protocol: TCP
       targetPort: 8281
+# spec:
+#  ports:
+#    - name: http
+#      port: 8080
+#      protocol: TCP
+#      targetPort: 8281

@@ -1,0 +1,128 @@
+swagger: '2.0'
+info:
+    title: TripsQuery
+    description: 'A brand new API with no content.  Go nuts!'
+    contact:
+        name: PhilProsser
+        url: 'http://www.redhat.com'
+        email: pprosser@redhat.com
+    version: '1.0'
+host: 'tripquery.trips.svc.cluster.local:8080'
+consumes:
+    - application/json
+produces:
+    - application/json
+paths:
+    /trips:
+        get:
+            description: 'Return all trips made for the year'
+            operationId: getalltrips
+            responses:
+                '200':
+                    description: 'Lis of trips as a result of the query'
+                    schema:
+                        $ref: '#/definitions/trips'
+                    examples:
+                        application/json: "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 75.91,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 58.74,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+    /trips/airline:
+        get:
+            summary: 'Search trips by Airline'
+            description: 'Search trips by Airline'
+            operationId: querytripsbyairline
+            responses:
+                '200':
+                    description: 'Jounrney list'
+                    schema:
+                        $ref: '#/definitions/trips'
+                    examples:
+                        application/json: "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 30.86,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 20.19,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+        parameters:
+            -
+                name: airline
+                in: query
+                description: 'Provide the airline to retrive only trips made by that airline. Examples are EASYJET, FLYBE BRITISH EUROPEAN, BMI, BMI BABY, LOT-POLISH AIRLINES, KLM-ROYAL DUTCH AIRLINES'
+                required: true
+                type: string
+    /trips/searchbyvalue:
+        get:
+            summary: 'Return trips greater equal to the value provided'
+            description: 'Return trips greater equal to the value provided'
+            operationId: querytripsbyvalue
+            responses:
+                '200':
+                    description: Trips
+                    schema:
+                        $ref: '#/definitions/trips'
+                    examples:
+                        application/json: "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 5.59,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 58.2,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+        parameters:
+            -
+                name: money
+                in: query
+                description: 'Search for trips greater than equal to the value provided'
+                required: true
+                type: number
+definitions:
+    trip:
+        title: 'Root Type for trip'
+        description: 'Sinlge trip'
+        type: object
+        properties:
+            Departure_2011:
+                type: string
+            Ticket_class_description:
+                type: string
+            Departure:
+                type: string
+            Destination:
+                type: string
+            Paid_fare:
+                format: double
+                type: number
+            Supplier_name:
+                type: string
+            Directorate:
+                type: string
+            Date:
+                type: string
+        example: "{\n  \"Departure_2011\" : \"February\",\n  \"Ticket_class_description\" : \"Economy\",\n  \"Departure\" : \"UK\",\n  \"Destination\" : \"UK\",\n  \"Paid_fare\" : 78.91,\n  \"Supplier_name\" : \"FLYBE BRITISH EUROPEAN\",\n  \"Directorate\" : \"CRB\",\n  \"Date\" : \"26/02/11\"\n}"
+    trips:
+        title: 'Root Type for trips'
+        description: 'Multiple trips'
+        required:
+            - blah
+            - trips
+        type: array
+        items:
+            type: object
+            properties:
+                Departure_2011:
+                    type: string
+                Ticket_class_description:
+                    type: string
+                Departure:
+                    type: string
+                Destination:
+                    type: string
+                Paid_fare:
+                    format: double
+                    type: number
+                Supplier_name:
+                    type: string
+                Directorate:
+                    type: string
+                Date:
+                    type: string
+        properties:
+            trips:
+                type: array
+                items:
+                    $ref: '#/definitions/trip'
+        example: "[\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 20.1,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    },\n    {\n        \"Departure_2011\": \"some text\",\n        \"Ticket_class_description\": \"some text\",\n        \"Departure\": \"some text\",\n        \"Destination\": \"some text\",\n        \"Paid_fare\": 32.33,\n        \"Supplier_name\": \"some text\",\n        \"Directorate\": \"some text\",\n        \"Date\": \"some text\"\n    }\n]"
+tags:
+    -
+        name: trips
+        description: 'Flights made'
+    -
+        name: Journies
+        description: ""

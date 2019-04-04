@@ -1,11 +1,69 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  creationTimestamp: '2019-03-27T15:10:28Z'
   name: tripquery-config
+  namespace: trips
+  resourceVersion: '586717'
+  selfLink: /api/v1/namespaces/tripquery/configmaps/tripquery-config
+  uid: 74cf4c4d-50a2-11e9-b765-001a4a1602c5
 data:
-  amqpEndPoint: amqwork1:5672
-  mysql.service.name: ??????
-  mysql.service.port: 3306
-  mysql.service.database: phil
-  mysql.service.username: phil
-  mysql.service.password: philphil
+  application.yml: |-
+    camel:
+      springboot:
+        # The Camel context name
+        name: TripQuery
+      component:
+        servlet:
+          mapping:
+            contextPath: /*
+
+    # Binding health checks to a different port
+    management:
+      port: 8181
+    server:
+      port: 8281
+      
+    # disable all management enpoints except health
+    endpoints:
+      hawtio:
+        sensitive: false
+        enabled: true
+      enabled: false
+      health:
+        enabled: true
+      jolokia:
+        sensitive: false
+        enabled: true
+        
+        
+    hawtio:
+      authenticationEnabled: false
+
+    demo:
+      outputdirectory: /Users/pprosser/files/dboutput
+      
+    mysql:
+      service:
+        # The name of the service hosting the MySQL database server,
+        # can be customized using the 'MYSQL_SERVICE_NAME' env variable to use a different service
+        name:     mysql.trips.svc.cluster.local 
+        port:     3306
+        # The database to use, can be customized using the 'MYSQL_SERVICE_DATABASE' env variable
+        database: sampledb
+        username: phil
+        password: philphil
+
+    spring:
+      # Spring JDBC configuration
+      datasource:
+        url:      jdbc:mysql://${mysql.service.name}:${mysql.service.port}/${mysql.service.database}
+        username: ${mysql.service.username}
+        password: ${mysql.service.password}
+
+    amqpEndPoint: messaging-hqrkut34el.enmasse-infra.svc.cluster.local:5672
+
+    # The application configuration properties
+    quickstart:
+      generateOrderPeriod: 10s
+      processOrderPeriod: 30s
