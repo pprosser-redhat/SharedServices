@@ -1,5 +1,7 @@
 spec:
   host: tripquery.apps.penryn.demolab.local
+  port: 
+    targetPort: http
   tls:
   to:
     termination: edge
