@@ -1,0 +1,108 @@
+
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<beanio xmlns="http://www.beanio.org/2012/03"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
+
+	<stream name="edi214" format="delimited">
+		<parser>
+			<property name="delimiter" value="*" />
+		</parser>
+		<group name="EDI214" occurs="1" class="model.EDI214">
+			<record name="ISA" occurs="1" class="model.EDI214Header" order="1">
+				<field name="recordType" rid="true" literal="ISA" required="true"/>
+				<field name="AuthorizationInformationQualifier" minLength="2" maxLength="2" required="true" />
+				<field name="AuthorizationInformation" minLength="10" maxLength="10" required="true"/>
+				<field name="SecurityInformationQualifier" minLength="2" maxLength="2" required="true"/>
+				<field name="SecurityInformation" minLength="10" maxLength="10" required="true"/>
+				<field name="InterchangeIDQualifier" minLength="2" maxLength="2" required="true"/>
+				<field name="InterchangeSenderID" minLength="15" maxLength="15" required="true"/>
+				<field name="InterchangeIDQualifier2" minLength="2" maxLength="2" required="true"/>
+				<field name="InterchangeReceiverID" minLength="15" maxLength="15" required="true"/>
+				<field name="InterchangeDate" minLength="6" maxLength="6" required="true"/>
+				<field name="InterchangeTime" minLength="4" maxLength="4" required="true"/>
+				<field name="InterchangeControlStandardsIdentifier" minLength="1" maxLength="1" required="true"/>
+				<field name="InterchangeControlVersionNumber" minLength="5" maxLength="5" required="true"/>
+				<field name="InterchangeControlNumber" minLength="9" maxLength="9" required="true"/>
+				<field name="AcknowledgmentRequested" minLength="1" maxLength="1" required="true"/>
+				<field name="UsageIndicator" minLength="1" maxLength="1" required="true"/>			
+				<field name="ComponentElementSeparator" minLength="1" maxLength="1" required="true"/>	
+			</record>
+			<record name="GS" occurs="1" class="model.EDI214GS" order="2">
+				<field name="recordType" rid="true" literal="GS" required="true" />
+				<field name="FunctionalIdentifierCode" minLength="2" maxLength="2" required="true"/>
+				<field name="ApplicationSendersCode" minLength="2" maxLength="15" required="true"/>
+				<field name="ApplicationReceiversCode" minLength="2" maxLength="15" required="true"/>
+				<field name="Date" minLength="8" maxLength="8" required="true"/>
+				<field name="Time" minLength="4" maxLength="8" required="true"/>
+				<field name="GroupControlNumber" minLength="1" maxLength="9" required="true"/>
+				<field name="ResponsibleAgencyCode" minLength="1" maxLength="2" required="true"/>
+				<field name="VersionReleaseIndustryIdentifierCode" minLength="1" maxLength="12" required="true"/>
+			</record>
+			<record name="ST" occurs="1" class="model.EDI214ST" order="3">
+				<field name="recordType" rid="true" literal="ST" required="true" />
+				<field name="TransactionSetIdentifierCode" minLength="3" maxLength="3" required="true"/>
+				<field name="TransactionSetControlNumber" minLength="4" maxLength="9" required="true"/>
+			</record>
+			<record name="B10" occurs="1" class="model.EDI214B10" order="4">
+				<field name="recordType" rid="true" literal="B10"  required="true"/>
+				<field name="ReferenceIdentification" minLength="1" maxLength="30" required="true"/>
+				<field name="ShipmentIdentificationNumber" minLength="1" maxLength="30" required="true"/>
+				<field name="StandardCarrierAlphaCode" minLength="2" maxLength="4" required="true"/>
+			</record>
+		
+			<group name="LXLoop" minOccurs="0" maxOccurs="unbounded" class="model.EDI214LXLoop" collection="list" order="5">
+				<record name="LXLoop" minOccurs="1" maxOccurs="1" order="1">
+					<field name="recordType" rid="true" literal="LX" required="true"/>
+					<field name="AssingedNumber" minLength="1" maxLength="6" required="true"/>
+				</record>
+				<record name="AT7Loop" class="model.EDI214AT7" minOccurs="1" maxOccurs="unbounded" collection="list" order="2">			
+					<field name="recordType" rid="true" literal="AT7" required="true"/>
+					<field name="ShipmentStatusCode" minLength="0" maxLength="2" required="false"  />
+					<field name="ShipmentStatusorAppointmentReasonCode" minLength="2" maxLength="2" required="false" />
+					<field name="ShipmentAppointmentStatusCode" minLength="2" maxLength="2" required="false" />
+					<field name="ShipmentStatusorAppointmentReasonCode2" minLength="2" maxLength="2" required="false"/>
+					<field name="Date" minLength="8" maxLength="8" required="true"/>
+					<field name="Time" minLength="4" maxLength="8" required="true"/>
+					<field name="TimeCode" minLength="2" maxLength="2" required="true"/> 
+				</record>
+				<record name="MS2Loop" class="model.EDI214MS2" minOccurs="0" maxOccurs="unbounded" collection="list" order="3">			
+					<field name="recordType" rid="true" literal="MS2" required="true"/>
+					<field name="StandardCarrierAlphaCode" minLength="2" maxLength="4" required="false"  />
+					<field name="EquipmentNumber" minLength="1" maxLength="10" required="false" />
+				</record>
+				<record name="L11" class="model.EDI214L11" occurs="1" order="4">			
+					<field name="recordType" rid="true" literal="L11" required="true"/>
+					<field name="ReferenceIdentification" minLength="1" maxLength="30" required="true"  />
+					<field name="ReferenceIdentificationQualifier" minLength="2" maxLength="3" required="true" />
+				</record>
+			</group>
+			<record name="SE" occurs="1" class="model.EDI214SE" order="6">
+				<field name="recordType" rid="true" literal="SE" required="true"/>
+				<field name="NumberofIncludedSegments" minLength="1" maxLength="10" required="true" />
+				<field name="TransactionSetControlNumber" minLength="4" maxLength="9" required="true" />	
+			</record>
+			<record name="GE" occurs="1" class="model.EDI214GE" order="7">
+				<field name="recordType" rid="true" literal="GE" required="true"/>
+				<field name="NumberofTransactionSetsIncluded" minLength="1" maxLength="6" required="true" />
+				<field name="GroupControlNumber" minLength="1" maxLength="9" required="true" />	
+			</record>
+			<record name="IEA" occurs="1" class="model.EDI214IEA" order="8">
+				<field name="recordType" rid="true" literal="IEA" required="true"/>
+				<field name="NumberofIncludedFunctionalGroups" minLength="1" maxLength="5" required="true" />
+				<field name="InterchangeControlNumber" minLength="9" maxLength="9" required="true" />	
+			</record>
+		</group>
+		
+	</stream>
+
+</beanio>

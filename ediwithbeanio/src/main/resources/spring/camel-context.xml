@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="processor.ParseResult" id="processMessage" scope="singleton"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <dataFormats>
+            <beanio contentTypeHeader="false" id="edi214"
+                ignoreInvalidRecords="false"
+                ignoreUnexpectedRecords="false"
+                ignoreUnidentifiedRecords="false" mapping="mappings.xml" streamName="edi214"/>
+        </dataFormats>
+        <route id="simple-route">
+            <from id="_to1" uri="file:/Users/pprosser/files?moveFailed=failed&amp;move=done/${date:now:yyyyMMdd'_'}${file:name}&amp;delay=30&amp;initialDelay=5&amp;timeUnit=SECONDS"/>
+            <unmarshal id="_unmarshal1">
+                <custom ref="edi214"/>
+            </unmarshal>
+            <process id="_process1" ref="processMessage"/>
+            <log id="route-log" message=">>> ${body}"/>
+            <marshal id="_marshal1">
+                <jacksonxml prettyPrint="true"/>
+            </marshal>
+            <log id="_log1" message="${body}"/>
+        </route>
+    </camelContext>
+</beans>
