@@ -13,7 +13,7 @@
             <setHeader headerName="Exchange.HTTP_QUERY" id="_operatorandoperatortype">
                 <simple>airline=british%20airways</simple>
             </setHeader>
-            <to id="Query API" pattern="InOut" uri="rest-swagger:openapi.json#querytripsbyairline?componentName=fusehttp4&amp;host=http://localhost:8281&amp;bridgeEndpoint=true"/>
+            <to id="Query API" pattern="InOut" uri="rest-swagger:openapi.json#querytripsbyairline?componentName=fusehttp4&amp;host=http://localhost:8281"/>
             <log id="_log2" message=">>>>> The body: ${body}"/>
             <unmarshal id="_unmarshal1">
                 <xmljson arrayName="thearray" forceTopLevelObject="true"

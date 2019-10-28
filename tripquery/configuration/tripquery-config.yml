@@ -23,7 +23,7 @@ data:
       port: 8181
     server:
       port: 8281
-      
+
     # disable all management enpoints except health
     endpoints:
       hawtio:
@@ -35,24 +35,24 @@ data:
       jolokia:
         sensitive: false
         enabled: true
-        
-        
+
+
     hawtio:
       authenticationEnabled: false
 
     demo:
       outputdirectory: /Users/pprosser/files/dboutput
-      
+
     mysql:
       service:
         # The name of the service hosting the MySQL database server,
         # can be customized using the 'MYSQL_SERVICE_NAME' env variable to use a different service
-        name:     mysql.trips.svc.cluster.local 
+        name:     mysql.trips.svc.cluster.local
         port:     3306
         # The database to use, can be customized using the 'MYSQL_SERVICE_DATABASE' env variable
         database: sampledb
         username: phil
-        password: philphil
+        password: phil
 
     spring:
       # Spring JDBC configuration
@@ -61,7 +61,7 @@ data:
         username: ${mysql.service.username}
         password: ${mysql.service.password}
 
-    amqpEndPoint: messaging-hqrkut34el.enmasse-infra.svc.cluster.local:5672
+    amqpEndPoint: messaging-fxkjwmmf3a.amq-online-infra.svc.cluster.local:5672
 
     # The application configuration properties
     quickstart:
