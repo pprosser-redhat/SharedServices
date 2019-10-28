@@ -20,11 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Bean;
 import org.apache.qpid.jms.JmsConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 
-/**
- * A simple Camel REST DSL route that implements the greetings service.
- * 
- */
 @Component
 public class CamelRouter extends RouteBuilder {
 
@@ -42,6 +39,21 @@ public class CamelRouter extends RouteBuilder {
     @Value("${AMQP_REMOTE_URI}")
     private String remoteUri;
 
+    @Value("${AMQP_HOST_2}")
+    private String amqpHost_2;
+    @Value("${AMQP_SERVICE_PORT_2}")
+    private String amqpPort_2;
+    @Value("${AMQP_SERVICE_USERNAME_2}")
+    private String userName_2;
+    @Value("${AMQP_SERVICE_PASSWORD_2}")
+    private String pass_2;
+    @Value("${AMQP_REMOTE_URI_2}")
+    private String remoteUri_2;
+
+    // Show as an example of setting up 2 amqp components potentially using different connections - I know the guys were talking about
+    // using 2 different connections in the same route
+
+    //Bean One
     @Bean 
     public org.apache.camel.component.amqp.AMQPComponent amqpConnection() {
         org.apache.camel.component.amqp.AMQPComponent amqp = new org.apache.camel.component.amqp.AMQPComponent();
@@ -53,16 +65,28 @@ public class CamelRouter extends RouteBuilder {
         return amqp;
     }
 
+    // Bean Two
+    @Bean
+    public org.apache.camel.component.amqp.AMQPComponent SecondAmqpConnection() {
+        org.apache.camel.component.amqp.AMQPComponent amqp = new org.apache.camel.component.amqp.AMQPComponent();
+        org.apache.qpid.jms.JmsConnectionFactory jmsConnectionFactory2 = new org.apache.qpid.jms.JmsConnectionFactory();
+        jmsConnectionFactory2.setRemoteURI(remoteUri_2);
+        jmsConnectionFactory2.setUsername(userName_2);
+        jmsConnectionFactory2.setPassword(pass_2);
+        amqp.setConnectionFactory(jmsConnectionFactory2);
+        return amqp;
+    }
+
     @Override
     public void configure() throws Exception {
-
+        
         from("timer:timer1?period=5s").description("Timer send to JMS")
             .setBody()
                 .simple("A message added")
-            .to("amqpConnection:queue:testqueue");     
+            .to("amqpConnection:queue:{{queuename}}");     
 
-        from("amqpConnection:queue:{{queuename}}").description("Receive message from queue")
-            .to("log:messagelog");
+        from("SecondAmqpConnection:queue:{{queuename}}").description("Receive message from queue")
+            .to("log:messagelog"); 
     }
 
 }
