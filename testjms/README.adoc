@@ -24,24 +24,4 @@ Store truststore in Openshift
 
 oc create secret generic amq-truststore --from-file=truststore.jks  --type=opaque
 
-
-
-- name: service_host
-            valueFrom:
-              configMapKeyRef:
-                key: service.host
-                name: amq-config
-          - name: service_port_amqps
-            valueFrom:
-              configMapKeyRef:
-                key: service.port.amqps
-                name: amq-config
-          - name: service_port_amqp
-            valueFrom:
-              configMapKeyRef:
-                key: service.port.amqp
-                name: amq-config
-          volumeMounts:
-            - mountPath: /opt/truststore
-              readOnly: true
-
+Need to mount the truststore to /opt/truststore once the integration is deployed

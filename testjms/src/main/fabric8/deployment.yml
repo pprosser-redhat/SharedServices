@@ -29,7 +29,3 @@ spec:
               configMapKeyRef:
                 key: service.port.amqp
                 name: amq-config
-          volumeMounts:
-          - mountPath: /opt/truststore
-            readOnly: true
-
