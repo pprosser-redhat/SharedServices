@@ -16,10 +16,8 @@
 package com.redhat.fuse.boosters.configmap;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Bean;
-import org.apache.qpid.jms.JmsConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 @Component
@@ -79,11 +77,28 @@ public class CamelRouter extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+
+        restConfiguration()
+                // to use undertow component and run on port 8080
+                .component("servlet").port(8080)
+                // lets enable pretty printing json responses
+                .dataFormatProperty("prettyPrint", "true");
+
+        rest("/api")
+            .post("hello/{name}")
+                .to("direct:sendMessage");
+    
         
         from("timer:timer1?period=5s").description("Timer send to JMS")
+            .setHeader("name")
+                .simple("A message added by the timer")
+            .to("direct:sendMessage");    
+            
+        from("direct:sendMessage")
             .setBody()
-                .simple("A message added")
-            .to("amqpConnection:queue:{{queuename}}");     
+                .simple("${header.name}")
+            .log("########### The outgoing message ${body}")
+            .to("amqpConnection:queue:{{queuename}}?exchangePattern=InOnly");
 
         from("SecondAmqpConnection:queue:{{queuename}}").description("Receive message from queue")
             .to("log:messagelog"); 
