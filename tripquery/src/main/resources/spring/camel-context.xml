@@ -4,6 +4,9 @@
     <bean class="org.apache.qpid.jms.JmsConnectionFactory"
         id="jmsConnectionFactory" primary="true">
         <property name="remoteURI" value="amqp://${amqpEndPoint}"/>
+        <property name="username" value="phil" />
+        <property name="password" value="password"/>
+        
     </bean>
     <camelContext id="context1" xmlns="http://camel.apache.org/schema/spring">
         <onException>
@@ -55,21 +58,21 @@
         </rest>
         <route id="Query all trips">
             <from id="Query" uri="direct:rest1"/>
-            <to id="GetTripsFromDB" uri="sql:SELECT * FROM travel?dataSource=dataSource">
+            <to id="GetTripsFromDB" uri="sql:SELECT * FROM travel?dataSource=#dataSource">
                 <description>Extract all rows from the database</description>
             </to>
             <to id="_to1" uri="direct:receiveMessage?exchangePattern=InOnly"/>
         </route>
         <route id="Query by Airline">
             <from id="SearchByAirline" uri="direct:rest2"/>
-            <to id="GetTripsbyAirlineFromDB" uri="sql:SELECT * FROM travel WHERE Supplier_name SOUNDS LIKE :#${headers.airline}?dataSource=dataSource">
+            <to id="GetTripsbyAirlineFromDB" uri="sql:SELECT * FROM travel WHERE Supplier_name SOUNDS LIKE :#${headers.airline}?dataSource=#dataSource">
                 <description>Extract all rows from the database</description>
             </to>
             <to id="_to2" uri="direct:receiveMessage?exchangePattern=InOnly"/>
         </route>
         <route id="Query by Monetary Value">
             <from id="SearchByMoney" uri="direct:rest3"/>
-            <to id="GetTripsbyMoneyFromDB" uri="sql:SELECT * FROM travel WHERE Paid_fare >= :#${headers.money}?dataSource=dataSource">
+            <to id="GetTripsbyMoneyFromDB" uri="sql:SELECT * FROM travel WHERE Paid_fare >= :#${headers.money}?dataSource=#dataSource">
                 <description>Extract all rows from the database</description>
             </to>
             <to id="_to3" uri="direct:receiveMessage?exchangePattern=InOnly"/>
@@ -89,7 +92,7 @@
             <marshal id="_marshal1">
                 <json library="Jackson" prettyPrint="true"/>
             </marshal>
-            <to id="toAMQP" uri="amqp:queue:receiveFlights?connectionFactory=jmsConnectionFactory&amp;jmsMessageType=Text&amp;deliveryMode=2"/>
+            <to id="toAMQP" uri="amqp:queue:receiveFlights?connectionFactory=#jmsConnectionFactory&amp;jmsMessageType=Text&amp;deliveryMode=2"/>
             <unmarshal id="_unmarshal1">
                 <json library="Jackson"/>
             </unmarshal>

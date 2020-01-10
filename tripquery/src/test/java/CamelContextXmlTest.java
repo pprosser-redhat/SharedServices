@@ -40,7 +40,7 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 	@EndpointInject(uri = "mock:output7")
 	protected MockEndpoint output7Endpoint;
 
-/*	@Test
+	@Test
 	public void testCamelRoute() throws Exception {
 		// Create routes from the output endpoints to our mock endpoints so we can assert expectations
 		context.addRoutes(new RouteBuilder() {
@@ -77,5 +77,5 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 	protected ClassPathXmlApplicationContext createApplicationContext() {
 		return new ClassPathXmlApplicationContext("spring/camel-context.xml");
 	}
-*/
+
 } 
