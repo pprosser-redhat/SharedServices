@@ -14,7 +14,7 @@
         <property name="WMQ_CONNECTION_MODE" value="XMSC_WMQ_CONNECTION_MODE"/>
         <property name="XMSC_USER_AUTHENTICATION_MQCSP" value="true" />
         <property name="channel" value="CLOUD.ADMIN.SVRCONN" />
-        <property name="hostName" value="philqm-1086.qm.eu-gb.mq.appdomain.cloud" />
+        <property name="hostName" value="" />
         <property name="port" value="31632" />
         <property name="queueManager" value="philqm" />
     </bean>
@@ -23,7 +23,7 @@
        <!-- <property name="WMQ_CONNECTION_MODE" value="XMSC_WMQ_CONNECTION_MODE"/> -->
       <!--  <property name="XMSC_USER_AUTHENTICATION_MQCSP" value="true"/>
         <property name="channel" value="CLOUD.ADMIN.SVRCONN" />
-        <property name="hostName" value="philqm-1086.qm.eu-gb.mq.appdomain.cloud" />
+        <property name="hostName" value="" />
         <property name="port" value="31632" />
         <property name="queueManager" value="philqm" />
     </bean> -->
