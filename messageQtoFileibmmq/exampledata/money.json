@@ -1,0 +1,282 @@
+[
+    {
+        "Departure_2011": "January",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2990.27,
+        "Supplier_name": "ETIHAD AIRWAYS",
+        "Directorate": "International Group",
+        "Date": "26/08/12"
+    },
+    {
+        "Departure_2011": "January",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2592.41,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "Strategic Director Border",
+        "Date": "07/07/11"
+    },
+    {
+        "Departure_2011": "January",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2592.41,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "Strategic Director Border",
+        "Date": "22/08/12"
+    },
+    {
+        "Departure_2011": "January",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2609.47,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "OSCT",
+        "Date": "13/06/11"
+    },
+    {
+        "Departure_2011": "January",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3077,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Strategic Director Border",
+        "Date": "01/11/11"
+    },
+    {
+        "Departure_2011": "February",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 4666.3,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "International Group",
+        "Date": "21/01/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3523.5,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Immigration Group",
+        "Date": "04/11/11"
+    },
+    {
+        "Departure_2011": "February",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3161.1,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "OSCT",
+        "Date": "17/05/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3523.5,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Immigration Group",
+        "Date": "08/05/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2887.67,
+        "Supplier_name": "QATAR AIRWAYS",
+        "Directorate": "Strategic Director Border",
+        "Date": "20/11/11"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3282.84,
+        "Supplier_name": "CONTINENTAL AIRLINES",
+        "Directorate": "Science & Research Group",
+        "Date": "20/11/11"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2642.27,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "OSCT",
+        "Date": "24/05/11"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2617.67,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "OSCT",
+        "Date": "12/02/12"
+    },
+    {
+        "Departure_2011": "May",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3599.93,
+        "Supplier_name": "AIR CANADA",
+        "Directorate": "IPS",
+        "Date": "04/05/12"
+    },
+    {
+        "Departure_2011": "May",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3599.93,
+        "Supplier_name": "AIR CANADA",
+        "Directorate": "IPS",
+        "Date": "10/09/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2609.1,
+        "Supplier_name": "BMI",
+        "Directorate": "OSCT",
+        "Date": "02/03/11"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3929.77,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Immigration Group",
+        "Date": "04/11/11"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3929.77,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Immigration Group",
+        "Date": "23/07/12"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 4895.43,
+        "Supplier_name": "QANTAS AIRWAYS",
+        "Directorate": "Policy & Strategy",
+        "Date": "07/05/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3571.07,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "OSCT",
+        "Date": "16/05/11"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3589.27,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Private Office",
+        "Date": "24/06/12"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 5395.63,
+        "Supplier_name": "QANTAS AIRWAYS",
+        "Directorate": "International Group",
+        "Date": "14/05/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 3589.27,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "Private Office",
+        "Date": "03/12/11"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2688,
+        "Supplier_name": "QANTAS AIRWAYS",
+        "Directorate": "Strategic Director Border",
+        "Date": "28/10/11"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2650.13,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "OSCT",
+        "Date": "29/07/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2895.67,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "OSCT",
+        "Date": "15/02/12"
+    },
+    {
+        "Departure_2011": "March",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2895.67,
+        "Supplier_name": "BRITISH AIRWAYS",
+        "Directorate": "OSCT",
+        "Date": "01/08/12"
+    },
+    {
+        "Departure_2011": "April",
+        "Ticket_class_description": "Business Class",
+        "Departure": "UK",
+        "Destination": "Non EEA",
+        "Paid_fare": 2650.13,
+        "Supplier_name": "VIRGIN ATLANTIC",
+        "Directorate": "OSCT",
+        "Date": "29/02/12"
+    }
+]

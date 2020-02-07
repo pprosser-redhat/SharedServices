@@ -10,7 +10,7 @@
             <!--  <setBody id="route-setBody">
                 <simple>Hello World from camel-context.xml</simple>
             </setBody> -->
-            <from id="route-timer" uri="amqp:queue:receiveFlights?connectionFactory=jmsConnectionFactory"/>
+            <from id="route-timer" uri="amqp:queue:receiveFlights?connectionFactory=#jmsConnectionFactory"/>
             <to id="_to1" uri="file:/Users/pprosser/files/amq?fileName=${header.JMSTimestamp}.json"/>
         </route>
     </camelContext>

@@ -4,9 +4,8 @@
     <bean class="org.apache.qpid.jms.JmsConnectionFactory"
         id="jmsConnectionFactory" primary="true">
         <property name="remoteURI" value="amqp://${amqpEndPoint}"/>
-        <property name="username" value="phil" />
+        <property name="username" value="phil"/>
         <property name="password" value="password"/>
-        
     </bean>
     <camelContext id="context1" xmlns="http://camel.apache.org/schema/spring">
         <onException>

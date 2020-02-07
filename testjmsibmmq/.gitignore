@@ -28,6 +28,5 @@ target/
 .classpath
 .project
 .settings/
-messageQtoFileibmmq/.factorypath
-testjmsibmmq/src/main/resources/ca.crt
-messageQtoFileibmmq/src/main/resources/logback.xml
+.mvn/
+.factorypath

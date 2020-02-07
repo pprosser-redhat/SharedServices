@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean id="jmsConnectionFactory" class="org.apache.camel.component.jms.JmsComponent">
+        <property name="connectionFactory" ref="wmq"/>
+    </bean>
+
+    <bean id="wmqfactory" class="com.ibm.msg.client.jms.JmsFactoryFactory" factory-method="getInstance">
+        <constructor-arg value="com.ibm.msg.client.wmq" />
+    </bean>
+<!-- NOT WORKING -->
+    <bean id="wmq" class="com.ibm.msg.client.jms.JmsConnectionFactory" parent="wmqfactory">
+        <property name="transportType" value="1" />
+        <property name="WMQ_CONNECTION_MODE" value="XMSC_WMQ_CONNECTION_MODE"/>
+        <property name="XMSC_USER_AUTHENTICATION_MQCSP" value="true" />
+        <property name="channel" value="CLOUD.ADMIN.SVRCONN" />
+        <property name="hostName" value="philqm-1086.qm.eu-gb.mq.appdomain.cloud" />
+        <property name="port" value="31632" />
+        <property name="queueManager" value="philqm" />
+    </bean>
+  <!--  <bean id="mqcf" class="com.ibm.mq.jms.MQConnectionFactory">
+        <property name="transportType" value="1"/> -->
+       <!-- <property name="WMQ_CONNECTION_MODE" value="XMSC_WMQ_CONNECTION_MODE"/> -->
+      <!--  <property name="XMSC_USER_AUTHENTICATION_MQCSP" value="true"/>
+        <property name="channel" value="CLOUD.ADMIN.SVRCONN" />
+        <property name="hostName" value="philqm-1086.qm.eu-gb.mq.appdomain.cloud" />
+        <property name="port" value="31632" />
+        <property name="queueManager" value="philqm" />
+    </bean> -->
+
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="ReadFromQueue">
+            
+            <from id="route-timer" uri="wmq:queue:DEV.QUEUE.1?connectionFactory=#jmsConnectionFactory" />
+                <log message="$body"></log>
+            <to id="_to1" uri="file:/Users/pprosser/files/amq?fileName=${header.JMSTimestamp}.json"/>
+        </route>
+    </camelContext>
+</beans>

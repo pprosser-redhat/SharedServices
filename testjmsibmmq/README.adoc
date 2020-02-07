@@ -1,0 +1,27 @@
+:launchURL: https://developers.redhat.com/launch
+:image: registry.access.redhat.com/fuse7/fuse-java-openshift:1.0
+
+= Externalized Configuration - Fuse Booster
+
+== Overview
+This example provides an example of talking to AMQ Broker Online via a camel route using an Openshift Service with TLS
+  
+== Deployment options
+
+A truststore needs to be created from the certificated defined in the AMQ Broker Config map
+
+To create the truststore :-
+
+create the ca.crt file from Openshift -- todo - find a better way
+
+To create the java truststore from the cert added to the AMQ configmap :-
+
+oc get configmap amq-config -o jsonpath='{.data.ca\.crt}' | base64 -D > ca.crt
+
+keytool -keystore truststore.jks -alias amqbroker -import -file ca.crt -storepass password -noprompt
+
+Store truststore in Openshift
+
+oc create secret generic amq-truststore --from-file=truststore.jks  --type=opaque
+
+Need to mount the truststore to /opt/truststore once the integration is deployed
