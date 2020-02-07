@@ -91,13 +91,13 @@ import com.ibm.msg.client.wmq.WMQConstants;
         try {
             JmsFactoryFactory ff = JmsFactoryFactory.getInstance(WMQConstants.WMQ_PROVIDER);
             JmsConnectionFactory mqcf = ff.createConnectionFactory();
-            mqcf.setStringProperty(WMQConstants.WMQ_HOST_NAME, "philqm-1086.qm.eu-gb.mq.appdomain.cloud");
+            mqcf.setStringProperty(WMQConstants.WMQ_HOST_NAME, "");
             mqcf.setIntProperty(WMQConstants.WMQ_PORT, 31632);
             mqcf.setStringProperty(WMQConstants.WMQ_CHANNEL, "CLOUD.ADMIN.SVRCONN");
             mqcf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
             mqcf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
-            mqcf.setStringProperty(WMQConstants.USERID, "firstapplica");
-            mqcf.setStringProperty(WMQConstants.PASSWORD, "_raPaXJDW9lUvR4cL9y-rNaZkRJ0jsAo7cYFekLVOF3n");
+            mqcf.setStringProperty(WMQConstants.USERID, "");
+            mqcf.setStringProperty(WMQConstants.PASSWORD, "");
             mqcf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, "philqm");
             
             wmq.setConnectionFactory(mqcf);
