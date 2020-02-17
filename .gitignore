@@ -30,4 +30,9 @@ target/
 .settings/
 messageQtoFileibmmq/.factorypath
 testjmsibmmq/src/main/resources/ca.crt
-messageQtoFileibmmq/src/main/resources/logback.xml
+tripqueryquarkus/.dockerignore
+tripqueryquarkus/.gitignore
+.gitignore
+.gitignore
+.gitignore
+tripqueryspringboot/.factorypath

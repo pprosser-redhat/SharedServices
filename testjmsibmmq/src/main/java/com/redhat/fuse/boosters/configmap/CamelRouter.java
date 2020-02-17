@@ -97,7 +97,7 @@ import com.ibm.msg.client.wmq.WMQConstants;
             mqcf.setIntProperty(WMQConstants.WMQ_CONNECTION_MODE, WMQConstants.WMQ_CM_CLIENT);
             mqcf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
             mqcf.setStringProperty(WMQConstants.USERID, "firstapplica");
-            mqcf.setStringProperty(WMQConstants.PASSWORD, "_raPaXJDW9lUvR4cL9y-rNaZkRJ0jsAo7cYFekLVOF3n");
+            mqcf.setStringProperty(WMQConstants.PASSWORD, "8QEtSikPz2ztysaUlHy7N2NfQAeJQzTJPYsIY1PluJuw");
             mqcf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, "philqm");
             
             wmq.setConnectionFactory(mqcf);

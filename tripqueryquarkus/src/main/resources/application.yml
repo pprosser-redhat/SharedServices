@@ -1,0 +1,43 @@
+camel:
+    context:
+        name: TripQuery
+quarkus:
+    application:
+        name: tripqueryquarkus
+
+mysql:
+    service:
+        name: localhost
+        port: 3306
+        database: phil
+        username: phil
+        password: philphil
+
+
+quarkus:
+    datasource: 
+        camel-sql:
+            url: jdbc:mysql://${mysql.service.name}:${mysql.service.port}/${mysql.service.database}
+            username: ${mysql.service.username}
+            password: ${mysql.service.password}
+            driver: com.mysql.cj.jdbc.Driver
+
+amqpEndPoint: amqwork1:5672
+
+mp:
+    messaging:
+        outgoing:
+            message:
+                connector: smallrye-amqp
+                host: amqwork1
+                port: 5672
+                username: phil
+                password: phil
+                endpoint-uri: seda:receiveFlights
+                broadcast: false
+                durable: true
+                address: receiveFlights
+
+kubernetes:
+    deployment:
+        target: openshift

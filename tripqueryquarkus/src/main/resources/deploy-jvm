@@ -1,0 +1,29 @@
+oc new-build --strategy docker --dockerfile - --code . --name tripqueryquarkus-jvm < ./src/main/docker/Dockerfile.jvm
+oc start-build --from-dir . tripqueryquarkus-jvm --follow
+
+oc new-app --image-stream trips/tripqueryquarkus-jvm  --name tripqueryquarkus
+
+oc expose svc tripqueryquarkus --port=8080
+
+Upload application.yml as config map
+
+oc create configmap tripqueryquarkus --from-file src/main/resources/application.yml
+
+Same level as containers :-
+
+volumes:
+        - name: myconfig
+          projected:
+            sources:
+              - configMap:
+                  name: tripquery-config
+            defaultMode: 420
+
+Underneath containers 
+
+    volumeMounts:
+                - name: myconfig
+                mountPath: /deployments/config
+
+
+export MAVEN_OPTS="-Xms6096M -Xmx12096M -XX:MaxMetaspaceSize=2048M"

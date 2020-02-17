@@ -1,0 +1,9 @@
+3scale import openapi src/main/resources/openapi.yaml -d penryn -k
+
+update proxy end points
+
+curl -v -k -X PATCH "https://3scale-admin.apps.penryn.demolab.local/admin/api/services/20/proxy.xml" -d 'access_token=5ea6eecca7da2ada0bfd3d1e0386ec0c9d7b3aac1303fb8e143d6dcc27bc183c&endpoint=https%3A%2F%2Fapi-3scale-apicast-production.apps.penryn.demolab.local&sandbox_endpoint=https%3A%2F%2Fapi-3scale-apicast-staging.apps.penryn.demolab.local'
+
+Promote to production
+
+curl -v -k -X POST "https://3scale-admin.apps.penryn.demolab.local/admin/api/services/20/proxy/configs/sandbox/2/promote.json" -d 'access_token=5ea6eecca7da2ada0bfd3d1e0386ec0c9d7b3aac1303fb8e143d6dcc27bc183c&to=production'
