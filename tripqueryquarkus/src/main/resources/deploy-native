@@ -1,0 +1,40 @@
+mvn clean package -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g -DskipTests
+
+oc new-build --binary --name=tripqueryquarknative -l app=tripqueryquarknative
+oc patch bc/tripqueryquarknative -p "{\"spec\":{\"strategy\":{\"dockerStrategy\":{\"dockerfilePath\":\"src/main/docker/Dockerfile.native\"}}}}"
+oc start-build tripqueryquarknative --from-dir=. --follow
+
+oc new-app --image-stream=tripqueryquarknative:latest
+
+oc expose service tripqueryquarknative --port=8080
+
+Upload application.yml as config map
+
+oc create configmap tripqueryquarkus --from-file src/main/resources/application.yml
+
+Same level as containers :-
+
+volumes:
+        - name: myconfig
+          projected:
+            sources:
+              - configMap:
+                  name: tripquery-config
+            defaultMode: 420
+
+Underneath containers 
+
+    volumeMounts:
+                - name: myconfig
+                mountPath: /work/config
+
+
+resources:
+  limits:
+    memory: 150Mi
+  requests:
+    memory: 30Mi
+
+
+
+export MAVEN_OPTS="-Xms6096M -Xmx12096M -XX:MaxMetaspaceSize=2048M"

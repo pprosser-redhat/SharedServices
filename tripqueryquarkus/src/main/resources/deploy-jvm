@@ -26,4 +26,8 @@ Underneath containers
                 mountPath: /deployments/config
 
 
+
+
+
+
 export MAVEN_OPTS="-Xms6096M -Xmx12096M -XX:MaxMetaspaceSize=2048M"
