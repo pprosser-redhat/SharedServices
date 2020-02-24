@@ -36,4 +36,9 @@ resources:
     memory: 30Mi
 
 
+Modified Dockerfile.native to add memory limits for the running application
+
+CMD ["./application", "-Xmn10m", "-Xmx30m", "-Dquarkus.http.host=0.0.0.0"]
+
+
 
