@@ -15,18 +15,18 @@ oc create configmap tripqueryquarkus --from-file src/main/resources/application.
 Same level as containers :-
 
 volumes:
-        - name: myconfig
-          projected:
-            sources:
-              - configMap:
-                  name: tripquery-config
-            defaultMode: 420
+  - name: myconfig
+    projected:
+      sources:
+        - configMap:
+            name: tripqueryquarkus
+      defaultMode: 420
 
 Underneath containers 
 
     volumeMounts:
-                - name: myconfig
-                mountPath: /work/config
+      - name: myconfig
+      mountPath: /work/config
 
 
 resources:
@@ -40,5 +40,16 @@ Modified Dockerfile.native to add memory limits for the running application
 
 CMD ["./application", "-Xmn10m", "-Xmx30m", "-Dquarkus.http.host=0.0.0.0"]
 
+Deploy as Knative service....
 
+The option below will not mount the configmap for externalisation of the configuration.
 
+~/knativecli/kn service create tripqueryquarknative --image image-registry.openshift-image-registry.svc:5000/trips/tripqueryquarknative
+
+To ensure the configmap gets bound into the deployment, create the Knative service using the Openshift command below:-
+
+ oc apply -f src/main/resources/tripqueryquarknative.yaml
+
+ or using the knative cli as below
+
+~/knativecli/kn service create tripqueryquarknative --image image-registry.openshift-image-registry.svc:5000/trips/tripqueryquarknative --mount /work/config=myconfig --volume myconfig=cm:tripqueryquarkus

@@ -1,0 +1,40 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: tripqueryquarknative
+  namespace: trips
+spec:
+  template:
+    metadata:
+      annotations:
+        client.knative.dev/user-image: >-
+          image-registry.openshift-image-registry.svc:5000/trips/tripqueryquarknative
+    spec:
+      volumes:
+        - name: myconfig
+          projected:
+            sources:
+              - configMap:
+                  name: tripqueryquarkus
+            defaultMode: 420
+      containerConcurrency: 0
+      containers:
+        - image: >-
+            image-registry.openshift-image-registry.svc:5000/trips/tripqueryquarknative
+          name: user-container
+          readinessProbe:
+            successThreshold: 1
+            tcpSocket:
+              port: 0
+          resources:
+            limits:
+              memory: 80Mi
+            requests:
+              memory: 20Mi
+          volumeMounts:
+            - name: myconfig
+              mountPath: /work/config
+      timeoutSeconds: 300
+  traffic:
+    - latestRevision: true
+      percent: 100
