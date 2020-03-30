@@ -36,3 +36,5 @@ tripqueryquarkus/.gitignore
 .gitignore
 .gitignore
 tripqueryspringboot/.factorypath
+HelloWorldArchetype/.factorypath
+HelloWorldLauncher/.factorypath
