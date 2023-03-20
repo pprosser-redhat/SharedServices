@@ -1,0 +1,30 @@
+- route:
+    id: sendtosftp
+    from:
+      uri: file:{{customer.file.directory}}
+      id: from-91e7
+      parameters:
+        moveFailed: failed
+        move: done/${date:now:yyyyMMdd'_'}${file:name}
+        initialDelay: 5
+        timeUnit: SECONDS
+        delay: 5
+      steps:
+        - log:
+            message: 'Lets send this!!'
+            id: log-a054
+        - marshal:
+            id: marshal-b5cf
+            pgp:
+              id: pgp-4fa0
+              algorithm: 6
+              keyFileName: '{{customer.public.key}}'
+              keyUserid: '{{customer.keyUserid}}'
+              armored: true
+        - to:
+            uri: sftp://{{sftphost}}:22/../{{customer.name}}/files/process
+            id: to-8023
+            parameters:
+              fileName: ${date:now:yyyyMMdd'_'}${file:name}
+              privateKeyFile: '{{ssh.private.key}}'
+              privateKeyPassphrase: '{{ssh.private.password}}'
