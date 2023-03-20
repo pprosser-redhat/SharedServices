@@ -44,6 +44,7 @@ quay.io/philprosser/sftpsender:v1
 
 ----- test1 example on demolab -----
 podman run -d --name sftpsender_test1 --volume /home/pprosser/test1/files/:/opt/test1:Z \
+      --volume /home/pprosser/sshkeypair:/opt/sshkey:Z \
 -e sftphost=sftpdemo.pprosser.demolab.local \
 -e customer.file.directory=/opt/test1/send \
 -e customer.public.key=file:/opt/test1/pubtoken/publickey.key \
@@ -51,8 +52,8 @@ podman run -d --name sftpsender_test1 --volume /home/pprosser/test1/files/:/opt/
 -e customer.name=test1 \
 -e superuser.user=test1 \
 -e superuser.password=redhat123 \
--e ssh.private.key=/home/pprosser/sshkeypair/integration
--e ssh.private.password=redhat123
+-e ssh.private.key=/opt/sshkey/integration \
+-e ssh.private.password=redhat123 \
 quay.io/philprosser/sftpsender:v1
 
 create new pgp keys (did it on RHEL)

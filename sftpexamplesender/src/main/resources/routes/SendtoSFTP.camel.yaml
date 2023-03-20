@@ -26,5 +26,6 @@
             id: to-8023
             parameters:
               fileName: ${date:now:yyyyMMdd'_'}${file:name}
+              username: '{{superuser.user}}'
               privateKeyFile: '{{ssh.private.key}}'
               privateKeyPassphrase: '{{ssh.private.password}}'
