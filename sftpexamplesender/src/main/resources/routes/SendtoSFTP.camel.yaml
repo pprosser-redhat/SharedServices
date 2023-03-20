@@ -29,3 +29,4 @@
               username: '{{superuser.user}}'
               privateKeyFile: '{{ssh.private.key}}'
               privateKeyPassphrase: '{{ssh.private.password}}'
+              preferredAuthentications: publickey
