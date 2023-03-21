@@ -22,11 +22,12 @@
               keyUserid: '{{customer.keyUserid}}'
               armored: true
         - to:
-            uri: sftp://{{sftphost}}:22/../{{customer.name}}/files/process
+            uri: sftp://{{sftphost}}:22/files/process
             id: to-8023
             parameters:
               fileName: ${date:now:yyyyMMdd'_'}${file:name}
               username: '{{superuser.user}}'
               privateKeyFile: '{{ssh.private.key}}'
               privateKeyPassphrase: '{{ssh.private.password}}'
+              useUserKnownHostsFile: false
               preferredAuthentications: publickey
