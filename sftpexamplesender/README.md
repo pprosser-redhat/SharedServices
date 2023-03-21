@@ -50,9 +50,7 @@ podman run -d --name sftpsender_test1 --volume /home/pprosser/test1/files/:/opt/
 -e customer.public.key=file:/opt/test1/pubtoken/publickey.key \
 -e customer.keyUserid=test1 \
 -e customer.name=test1 \
--e superuser.user=test1 \
--e superuser.password=redhat123 \
--e ssh.private.key=/opt/sshkey/integration \
+-e ssh.private.key=/opt/sshkey/id_rsa_integration \
 -e ssh.private.password=redhat123 \
 quay.io/philprosser/sftpsender:v1
 
@@ -106,3 +104,5 @@ Downloaded the integration private key to login to the sftp server
 
 
 need to ssh-copy public key to sftp server
+
+To be able to read the private key in the container I need to change the permissions - chmod 644 to the private key
