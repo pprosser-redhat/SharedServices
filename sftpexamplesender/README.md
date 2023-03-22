@@ -54,6 +54,21 @@ podman run -d --name sftpsender_test1 --volume /home/pprosser/test1/files/:/opt/
 -e ssh.private.password=redhat123 \
 quay.io/philprosser/sftpsender:v1
 
+----- example SFTP receiver command -----
+
+sftphost = sftpdemo.pprosser.demolab.local
+
+customer.file.directory = /Users/pprosser/files/customer1/received
+
+customer.user = test1
+customer.password = redhat123
+
+customer.privateKeyFileName: file:/Users/pprosser/files/customer1/pubtoken/privatekey.key
+customer.keyUserid = test1
+customer.keypassword = redhat123
+
+-----------------------------------------
+
 create new pgp keys (did it on RHEL)
 
 gpg –full-generate-key
@@ -106,3 +121,7 @@ Downloaded the integration private key to login to the sftp server
 need to ssh-copy public key to sftp server
 
 To be able to read the private key in the container I need to change the permissions - chmod 644 to the private key
+
+example send from my laptop
+
+scp Red Hackfest\ Red\ Hat\ Integration\ -\ Technical\ Overview.pdf pprosser@integration.pprosser.demolab.local:/home/pprosser/test1/files/send
