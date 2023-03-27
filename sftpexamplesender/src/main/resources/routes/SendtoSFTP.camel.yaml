@@ -27,7 +27,8 @@
             parameters:
               fileName: ${date:now:yyyyMMdd'_'}${file:name}
               username: '{{customer.name}}'
-              privateKeyFile: '{{ssh.private.key}}'
-              privateKeyPassphrase: '{{ssh.private.password}}'
+              password: '{{customer.password}}'
+#              privateKeyFile: '{{ssh.private.key}}'
+#              privateKeyPassphrase: '{{ssh.private.password}}'
               useUserKnownHostsFile: false
-              preferredAuthentications: publickey
+              preferredAuthentications: publickey,password

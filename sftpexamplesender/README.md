@@ -55,17 +55,25 @@ podman run -d --name sftpsender_test1 --volume /home/pprosser/test1/files/:/opt/
 quay.io/philprosser/sftpsender:v1
 
 ----- example SFTP receiver command -----
+java -Dsftphost=sftpdemo.pprosser.demolab.local \
+-Dcustomer.file.directory=/Users/pprosser/files/customer1/received \
+-Dcustomer.user=pat \
+-Dcustomer.password=redhat123 \
+-Dcustomer.privateKeyFileName=file:/Users/pprosser/files/customer1/pubtoken/privatekey.key \
+-Dcustomer.keyUserid=test1 \
+-Dcustomer.keypassword=redhat123 \
+-jar target/quarkus-app/quarkus-run.jar
 
-sftphost = sftpdemo.pprosser.demolab.local
+-----------------------------------------
+Send a big file over
 
-customer.file.directory = /Users/pprosser/files/customer1/received
+scp /Users/pprosser/Downloads/AMQStreamsDeepDive.pdf pprosser@integration.pprosser.demolab.local:/home/pprosser/john/files/send
 
-customer.user = test1
-customer.password = redhat123
+-----------------------------------------
+Log in to sftp server and get file
 
-customer.privateKeyFileName: file:/Users/pprosser/files/customer1/pubtoken/privatekey.key
-customer.keyUserid = test1
-customer.keypassword = redhat123
+cd /Users/pprosser/files/customer1/received
+sftp derby@sftpdemo.pprosser.demolab.local
 
 -----------------------------------------
 
@@ -118,6 +126,42 @@ Downloaded the integration private key to login to the sftp server
 /Users/pprosser/files/privatekey/integration
 
 
+----------------------
+example pgp public key
+----------------------
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQENBGQZgBQBCACvgq8FzkiKa1ncs5GNRub4U5Aey68qxlP0rkWM9Mt34yTJR8jV
+93nut61xTUkJoJ0TtRZ6S6GJs/vMRvf6x747QowNFHpcU9+4DhH8QDoXIBExBTSv
+moNzOzf/KIxy611i1A3tmMCA12u5LeM7UBnDnk6oG1n6eX6csDdVF8rybXGdatwk
+pflCqht9txIbVrmhH6yPNDwVB0ZMshMab4wE9xAwFIB+arBobqO4OmbGo8nJqu8O
+XS5M3wn0A8PS0K97LYzEJQoRMXc9MR98z/x3U1/3a4/7m7EOXCCcHyfG1PoZ8GSN
+Tyk1+K67uDbyaiqnBKWhnNHwkKv3OMWG6SO5ABEBAAG0IXRlc3QxIChjb21tZW50
+KSA8dGVzdDFAdGVzdDEuY29tPokBTgQTAQgAOBYhBDldtOOSuoq34/TfXsEVF4I/
+s9ylBQJkGYAUAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEMEVF4I/s9yl
+KaQH/05eQpEob6HsRR0qlWlhj5TmkImle4/NUhkDF2ux59UfvwPsoiuNgxUDjAaC
+AKmtSv19K8JrDJyPADI0pGIXfSTSGGls9Ll6MHtyRoCCmKtiWxk7fxNM56+0glBV
++GpF9Jg4x6tP2fwbkNKKKN1VzPwr+5BtBTkVcH68h34ZbrU0vmV+wubEptBYTn8L
+GpId3LZI95Q+dNre98cHbakgMMJ8Tqc3W6m6x8JaJiTmrULxSJxEFFPrxFtlBWQh
+TDr37CX9tHfCYPxjNsJKQXZ2K2Urj+GLmLSH8uHTZWBExzYihbDPPJ5DVcJU/Nwb
+kCnEu4/K7riQT7cb3GitNDjOapG5AQ0EZBmAFAEIAPUkHDFE92FjLEwJEvLX0pB0
+5QrtFirMUHsrs5ZR30rYwM7gKf+jUIkEGB2LOm6dk9d/9eJbwm2thUqNXEXxI+zU
+J9CVUhJBC/pyw5tiUIihSGFF/uAePrPBkCh2zOxzvBPo/orh8zHad+numl27K9cV
+t1Pl2N01sp/7B/Af8UyE2IEn3lOxfqGD+7Ssu9eoZ+iFDwsa9hi+0rLYuJ5iNz43
+2RHnIi4l7e1umewNUbI0Ef7fSQfP1KyzDdubtJhGWNb97lFweoa5BChqVaylrB/b
+kO3D2USFuMnxzV56wmsl/uX5Dap14WHAwze2o8MOs4jbu10Kg+ccMidXK3EQb20A
+EQEAAYkBNgQYAQgAIBYhBDldtOOSuoq34/TfXsEVF4I/s9ylBQJkGYAUAhsMAAoJ
+EMEVF4I/s9ylg5AH/iq+DTilq1Unzb1jid4Tptkqlk9MTcFjw5adSKDzvFr/IMJj
+owO6es7UO6gr5lmYZqGxEsn8o/GdrRjq6dqb6I6YpcrucX9/2l4YoH4h/MHTcUrj
+k5HlvcDrwEk3lYSfTCofAgtyvUBAKogn7DesqkubgvZj+vCi7vdXlbgJn/UREDiW
++ax4x67iOfJr2vwpdYfhrSENycdcZ4zPJkJ+x2peEwzsc2+gaUhYtD3gdzdnt/XR
+2NyIMUJMWDjJM5PZTag1usDpQrrOVRH7yoqqKiK9dQVy7RaEDdlVcm9XCUvYZE2h
+/PvdVGak5j6scmsTi3o3PG/kqU+EtA2DyzqYRk0=
+=RXCW
+-----END PGP PUBLIC KEY BLOCK-----
+
+
 need to ssh-copy public key to sftp server
 
 To be able to read the private key in the container I need to change the permissions - chmod 644 to the private key
@@ -125,3 +169,6 @@ To be able to read the private key in the container I need to change the permiss
 example send from my laptop
 
 scp Red Hackfest\ Red\ Hat\ Integration\ -\ Technical\ Overview.pdf pprosser@integration.pprosser.demolab.local:/home/pprosser/test1/files/send
+
+
+
